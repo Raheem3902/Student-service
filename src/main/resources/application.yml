@@ -1,0 +1,32 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
+server:
+  port: 8090
+
+spring:
+  application:
+    name: students
+  cloud:
+    config:
+      enabled: true
+      url: http://localhost:8888  # Config server URL
+      # The datasource settings should be placed under the main `spring` section, not inside `cloud.config`
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/students  # Your database name should be 'students'
+    username: postgres
+    password: Astag@123
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # Use 'update' to apply changes without dropping the schema
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  config:
+    import: optional:configserver:http://localhost:8888  # Config server is optional
